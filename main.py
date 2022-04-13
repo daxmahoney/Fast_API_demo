@@ -32,12 +32,12 @@ async def get_shapes():
 
 @app.get("/shapes/{shape_id}")
 async def get_shape_by_id(shape_id:int):
-    for shape in shapes:
-        if shape["id"] == shape_id:
-            return shape
+    if shapes.count_documents({"id": shape_id}) > 0:
+        shape = shapes.find_one({"id": shape_id})
+        return {key:shape[key] for key in shape if key != "_id"}
     raise HTTPException(status_code=404, detail=f"No shape with id {shape_id} found")
 
 @app.post("/shapes")
 async def post_shape(shape: Shape):
-    shapes.insert_ine(shape.dict())
+    shapes.insert_one(shape.dict())
     return shape
