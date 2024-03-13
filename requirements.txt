@@ -1,5 +1,5 @@
 fastapi==0.75.1
-httpie==3.1.0
+# httpie==3.1.0 has a vulnerability
 mongita==1.1.1
 pydantic==1.9.0
 uvicorn==0.17.6
